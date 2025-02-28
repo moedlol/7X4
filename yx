@@ -1,0 +1,273 @@
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local BackgroundImage = Instance.new("ImageLabel")
+local UIS = game:GetService("UserInputService")
+local ScrollingFrame = Instance.new("ScrollingFrame")
+local OpenCloseButton = Instance.new("TextButton")
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+Frame.Parent = ScreenGui
+ScrollingFrame.Parent = Frame
+Title.Parent = Frame
+BackgroundImage.Parent = Frame
+OpenCloseButton.Parent = ScreenGui
+
+Frame.Size = UDim2.new(0, 400, 0, 500)
+Frame.Position = UDim2.new(0.5, -200, 0.5, -250)
+Frame.BackgroundTransparency = 1
+
+ScrollingFrame.Size = UDim2.new(1, 0, 1, 0)
+ScrollingFrame.Position = UDim2.new(0, 0, 0, 0)
+ScrollingFrame.BackgroundTransparency = 0.5
+ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+ScrollingFrame.ScrollBarThickness = 8
+
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Position = UDim2.new(0, 0, 0, -40)
+Title.BackgroundColor3 = Color3.fromRGB(255, 165, 0)
+Title.Text = "7x4x2x1 GUI v3 beta"
+Title.TextColor3 = Color3.fromRGB(0, 0, 0)
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 20
+Title.BorderSizePixel = 2
+Title.Visible = true
+
+BackgroundImage.Size = UDim2.new(1, 0, 1, 0)
+BackgroundImage.Position = UDim2.new(0, 0, 0, 0)
+BackgroundImage.Image = "rbxassetid://115236245839164"
+BackgroundImage.ScaleType = Enum.ScaleType.Stretch
+
+OpenCloseButton.Size = UDim2.new(0,70, 0, 70)
+OpenCloseButton.Position = UDim2.new(0, 0, 0.5, -20)
+OpenCloseButton.BackgroundColor3 = Color3.fromRGB(255, 165, 0)
+OpenCloseButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+OpenCloseButton.Text = ">"
+OpenCloseButton.Font = Enum.Font.SourceSansBold
+OpenCloseButton.TextSize = 50
+OpenCloseButton.BorderSizePixel = 10
+
+local isOpen = true
+OpenCloseButton.MouseButton1Click:Connect(function()
+    if isOpen then
+        Frame:TweenPosition(UDim2.new(1.5, -200, 0.5, -250), "Out", "Quad", 0.5, true)
+        OpenCloseButton.Text = "<"
+    else
+        Frame:TweenPosition(UDim2.new(0.5, -200, 0.5, -250), "In", "Quad", 0.5, true)
+        OpenCloseButton.Text = ">"
+    end
+    isOpen = not isOpen
+end)
+
+local function createButton(name, callback, position)
+    local Button = Instance.new("TextButton")
+    Button.Parent = ScrollingFrame
+    Button.Size = UDim2.new(1, -20, 0, 40)
+    Button.Position = UDim2.new(0, 10, 0, position)
+    Button.BackgroundColor3 = Color3.fromRGB(255, 165, 0)
+    Button.TextColor3 = Color3.fromRGB(0, 0, 0)
+    Button.Text = name
+    Button.TextSize = 20
+    Button.Font = Enum.Font.SourceSansBold
+    Button.BackgroundTransparency = 0
+    Button.ZIndex = 2
+    Button.MouseButton1Click:Connect(callback)
+
+    ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, position + 40)
+end
+
+createButton("Decal Spam", function()
+    local decalId = "rbxassetid://95183022670625"
+    for _, obj in pairs(game.Workspace:GetDescendants()) do
+        if obj:IsA("Decal") then obj:Destroy() end
+    end
+    for _, part in pairs(game.Workspace:GetDescendants()) do
+        if part:IsA("BasePart") then
+            for _, face in pairs({"Front", "Back", "Right", "Left", "Top", "Bottom"}) do
+                local decal = Instance.new("Decal")
+                decal.Texture = decalId
+                decal.Face = Enum.NormalId[face]
+                decal.Parent = part
+            end
+        end
+    end
+end, 40)
+
+createButton("Skybox", function()
+    local lighting = game:GetService("Lighting")
+    local sky = Instance.new("Sky")
+    sky.Parent = lighting
+    for _, face in pairs({"Bk", "Dn", "Ft", "Lf", "Rt", "Up"}) do
+        sky["Skybox"..face] = "rbxassetid://95183022670625"
+    end
+end, 80)
+
+createButton("Message", function()
+    if messageInstance then
+        messageInstance:Destroy()
+        messageInstance = nil
+    else
+        messageInstance = Instance.new("Message", game.Workspace)
+        messageInstance.Text = "7x4x2x1 IS HAX JOIN DA TEAM discord.com/invite/74Av7xEk"
+    end
+end, 120)
+
+createButton("Particles", function()
+    for _, obj in pairs(game.Workspace:GetDescendants()) do
+        if obj:IsA("BasePart") then
+            local particle = Instance.new("ParticleEmitter")
+            particle.Texture = "rbxassetid://95183022670625"
+            particle.Parent = obj
+        end
+    end
+end, 160)
+
+createButton("Hint", function()
+    local hint = Instance.new("Hint", game.Workspace)
+    hint.Text = "YEAZZIR BABY 7x4x2x1 ON TOPZ BOIZZ"
+    wait(5)
+    hint:Destroy()
+end, 200)
+
+createButton("Disco Fog", function()
+    local lighting = game:GetService("Lighting")
+    local fogEffect = lighting:FindFirstChild("FogEffect") or Instance.new("ColorCorrectionEffect", lighting)
+    fogEffect.Name = "FogEffect"
+    
+    running = not running
+    while running do
+        fogEffect.TintColor = Color3.fromRGB(math.random(0, 255), math.random(0, 255), math.random(0, 255))
+        wait(0.5)
+    end
+end, 240)
+
+createButton("Jumpscare", function()
+    local blackScreen = Instance.new("Frame", ScreenGui)
+    blackScreen.Size = UDim2.new(1, 0, 1, 0)
+    blackScreen.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    blackScreen.ZIndex = 10
+
+    local jumpscareImage = Instance.new("ImageLabel", blackScreen)
+    jumpscareImage.Size = UDim2.new(1, 0, 1, 0)
+    jumpscareImage.Image = "rbxassetid://115236245839164"
+    jumpscareImage.BackgroundTransparency = 1
+    jumpscareImage.ZIndex = 11
+
+    local sound = Instance.new("Sound", game.Workspace)
+    sound.SoundId = "rbxassetid://18260230947"
+    sound:Play()
+    
+    wait(4)
+    blackScreen:Destroy()
+    sound:Destroy()
+end, 280)
+
+createButton("555", function()
+    for _, v in pairs(game.Workspace:GetDescendants()) do
+        if v:IsA("BasePart") then
+            v.BrickColor = BrickColor.new("Really black")
+            v.TopSurface = "Smooth"
+            v.BottomSurface = "Smooth"
+
+            local selection = Instance.new("SelectionBox", v)
+            selection.Adornee = v
+            selection.Color3 = Color3.new(1, 0, 0)
+
+            local pointLight = Instance.new("PointLight", v)
+            pointLight.Color = Color3.new(1, 0, 0)
+            pointLight.Range = 15
+            pointLight.Brightness = 5
+
+            local fire = Instance.new("Fire", v)
+            fire.Size = 19
+            fire.Heat = 22
+        end
+    end
+
+    local lighting = game:GetService("Lighting")
+    lighting.TimeOfDay = "00:00:00"
+    lighting.Brightness = 0
+    lighting.ShadowColor = Color3.new(0, 0, 0)
+    lighting.Ambient = Color3.new(1, 0, 0)
+    lighting.FogEnd = 200
+    lighting.FogColor = Color3.new(0, 0, 0)
+end, 320)
+
+createButton("Play Theme", function()
+    if soundInstance then
+        soundInstance:Destroy()
+        soundInstance = nil
+    else
+        soundInstance = Instance.new("Sound", game.Workspace)
+        soundInstance.SoundId = "rbxassetid://139488665764275"
+        soundInstance.Looped = true
+        soundInstance:Play()
+    end
+end, 360)
+
+createButton("Hide Everything", function()
+    for _, obj in pairs(game.Workspace:GetChildren()) do
+        if obj ~= game.Players.LocalPlayer.Character and not obj:IsA("Camera") and not obj:IsA("Terrain") then
+            obj:Destroy()
+        end
+    end
+
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player.Character then
+            for _, part in pairs(player.Character:GetChildren()) do
+                if part:IsA("BasePart") or part:IsA("MeshPart") then
+                    part.Transparency = 1
+                    if part:FindFirstChild("face") then
+                        part.face:Destroy()
+                    end
+                elseif part:IsA("Accessory") or part:IsA("Clothing") then
+                    part:Destroy()
+                end
+            end
+        end
+    end
+
+    local player = game.Players.LocalPlayer
+    if player and player.Character then
+        local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.WalkSpeed = 0
+            humanoid.JumpPower = 0
+            humanoid.Sit = true
+        end
+    end
+
+    if player.Character and player.Character.PrimaryPart then
+        player.Character.PrimaryPart.Anchored = true
+    end
+
+    local camera = game.Workspace.CurrentCamera
+    camera.CameraType = Enum.CameraType.Custom
+end, 400)
+
+createButton("Explode Random Parts", function()
+    local parts = {}
+
+    for _, obj in pairs(game.Workspace:GetDescendants()) do
+        if obj:IsA("BasePart") and not obj:IsDescendantOf(game.Players) then
+            table.insert(parts, obj)
+        end
+    end
+
+    for i = 1, math.min(50, #parts) do
+        local part = parts[math.random(1, #parts)]
+        
+        local explosion = Instance.new("Explosion")
+        explosion.Position = part.Position
+        explosion.BlastRadius = 15
+        explosion.BlastPressure = 0
+        explosion.DestroyJointRadiusPercent = 1
+        explosion.Parent = game.Workspace
+        
+        explosion.Hit:Connect(function(hit)
+            if hit:IsDescendantOf(game.Players) then
+                explosion:Destroy()
+            end
+        end)
+    end
+end, 440)
