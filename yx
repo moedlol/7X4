@@ -26,7 +26,7 @@ ScrollingFrame.ScrollBarThickness = 8
 Title.Size = UDim2.new(1, 0, 0, 40)
 Title.Position = UDim2.new(0, 0, 0, -40)
 Title.BackgroundColor3 = Color3.fromRGB(255, 165, 0)
-Title.Text = "7x4x2x1 GUI v3 beta"
+Title.Text = "8x7x9x0 GUI v3 beta"
 Title.TextColor3 = Color3.fromRGB(0, 0, 0)
 Title.Font = Enum.Font.SourceSansBold
 Title.TextSize = 20
@@ -77,7 +77,7 @@ local function createButton(name, callback, position)
 end
 
 createButton("Decal Spam", function()
-    local decalId = "rbxassetid://95183022670625"
+    local decalId = "rbxassetid://124482792399501"
     for _, obj in pairs(game.Workspace:GetDescendants()) do
         if obj:IsA("Decal") then obj:Destroy() end
     end
@@ -98,7 +98,7 @@ createButton("Skybox", function()
     local sky = Instance.new("Sky")
     sky.Parent = lighting
     for _, face in pairs({"Bk", "Dn", "Ft", "Lf", "Rt", "Up"}) do
-        sky["Skybox"..face] = "rbxassetid://95183022670625"
+        sky["Skybox"..face] = "rbxassetid://124482792399501"
     end
 end, 80)
 
@@ -108,7 +108,7 @@ createButton("Message", function()
         messageInstance = nil
     else
         messageInstance = Instance.new("Message", game.Workspace)
-        messageInstance.Text = "7x4x2x1 IS HAX JOIN DA TEAM discord.com/invite/74Av7xEk"
+        messageInstance.Text = "8x7x9x0 IS HAX JOIN DA TEAM discord.com/invite/74Av7xEk"
     end
 end, 120)
 
@@ -116,7 +116,7 @@ createButton("Particles", function()
     for _, obj in pairs(game.Workspace:GetDescendants()) do
         if obj:IsA("BasePart") then
             local particle = Instance.new("ParticleEmitter")
-            particle.Texture = "rbxassetid://95183022670625"
+            particle.Texture = "rbxassetid://124482792399501"
             particle.Parent = obj
         end
     end
@@ -124,7 +124,7 @@ end, 160)
 
 createButton("Hint", function()
     local hint = Instance.new("Hint", game.Workspace)
-    hint.Text = "YEAZZIR BABY 7x4x2x1 ON TOPZ BOIZZ"
+    hint.Text = "YEAZZIR BABY 8x7x9x0 ON TOPZ BOIZZ"
     wait(5)
     hint:Destroy()
 end, 200)
